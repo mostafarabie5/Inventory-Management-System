@@ -1,0 +1,162 @@
+[
+    {
+        "voltage": 12.50,
+        "current": 10.00,
+        "powerrating": 125.00,
+        "quantity": 50,
+        "name": "battery",
+        "description": "A rechargeable battery providing 12.5V and 10A, suitable for various applications."
+    },
+    {
+        "voltage": 24.00,
+        "current": 5.00,
+        "powerrating": 120.00,
+        "quantity": 30,
+        "name": "alternator",
+        "description": "An alternator generating 24V and 5A, commonly used in automotive and industrial settings."
+    },
+    {
+        "voltage": 48.00,
+        "current": 2.50,
+        "powerrating": 120.00,
+        "quantity": 20,
+        "name": "inverter",
+        "description": "An inverter converting 48V DC to AC, delivering 2.5A for power supply systems."
+    },
+    {
+        "voltage": 36.00,
+        "current": 3.33,
+        "powerrating": 119.88,
+        "quantity": 25,
+        "name": "motor controller",
+        "description": "A motor controller operating at 36V and 3.33A, ideal for controlling electric motors."
+    },
+    {
+        "voltage": 60.00,
+        "current": 2.00,
+        "powerrating": 120.00,
+        "quantity": 15,
+        "name": "dc-dc converter",
+        "description": "A DC-DC converter providing 60V and 2A, used for voltage regulation in electronic circuits."
+    },
+    {
+        "voltage": 72.00,
+        "current": 1.67,
+        "powerrating": 120.24,
+        "quantity": 10,
+        "name": "charger",
+        "description": "A charger providing 72V and 1.67A, suitable for charging high-voltage batteries."
+    },
+    {
+        "voltage": 96.00,
+        "current": 1.25,
+        "powerrating": 120.00,
+        "quantity": 5,
+        "name": "supercapacitor",
+        "description": "A supercapacitor with 96V and 1.25A, used for energy storage and rapid discharge applications."
+    },
+    {
+        "voltage": 120.00,
+        "current": 1.00,
+        "powerrating": 120.00,
+        "quantity": 8,
+        "name": "power supply",
+        "description": "A power supply unit delivering 120V and 1A, ideal for providing stable power to electronic devices."
+    },
+    {
+        "voltage": 240.00,
+        "current": 0.50,
+        "powerrating": 120.00,
+        "quantity": 12,
+        "name": "rectifier",
+        "description": "A rectifier converting 240V AC to DC, with a current of 0.5A, used in power conversion systems."
+    },
+    {
+        "voltage": 12.00,
+        "current": 15.00,
+        "powerrating": 180.00,
+        "quantity": 40,
+        "name": "fuse",
+        "description": "A fuse rated at 12V and 15A, providing overcurrent protection in electrical circuits."
+    },
+    {
+        "voltage": 24.00,
+        "current": 7.50,
+        "powerrating": 180.00,
+        "quantity": 35,
+        "name": "relay",
+        "description": "A relay operating at 24V and 7.5A, used for switching electrical circuits."
+    },
+    {
+        "voltage": 48.00,
+        "current": 3.75,
+        "powerrating": 180.00,
+        "quantity": 22,
+        "name": "switch",
+        "description": "A switch rated at 48V and 3.75A, used for controlling electrical circuits."
+    },
+    {
+        "voltage": 36.00,
+        "current": 5.00,
+        "powerrating": 180.00,
+        "quantity": 18,
+        "name": "connector",
+        "description": "A connector with 36V and 5A, used for joining electrical circuits together."
+    },
+    {
+        "voltage": 60.00,
+        "current": 3.00,
+        "powerrating": 180.00,
+        "quantity": 14,
+        "name": "cable",
+        "description": "A cable rated at 60V and 3A, used for transmitting electrical power or signals."
+    },
+    {
+        "voltage": 72.00,
+        "current": 2.50,
+        "powerrating": 180.00,
+        "quantity": 9,
+        "name": "wire",
+        "description": "A wire providing 72V and 2.5A, used for electrical connections and power transmission."
+    },
+    {
+        "voltage": 96.00,
+        "current": 1.88,
+        "powerrating": 180.48,
+        "quantity": 7,
+        "name": "resistor",
+        "description": "A resistor rated at 96V and 1.88A, used to limit current flow in electrical circuits."
+    },
+    {
+        "voltage": 120.00,
+        "current": 1.50,
+        "powerrating": 180.00,
+        "quantity": 6,
+        "name": "capacitor",
+        "description": "A capacitor with 120V and 1.5A, used for storing electrical energy and filtering signals."
+    },
+    {
+        "voltage": 240.00,
+        "current": 0.75,
+        "powerrating": 180.00,
+        "quantity": 11,
+        "name": "inductor",
+        "description": "An inductor rated at 240V and 0.75A, used for storing energy in a magnetic field."
+    },
+    {
+        "voltage": 12.00,
+        "current": 20.00,
+        "powerrating": 240.00,
+        "quantity": 45,
+        "name": "diode",
+        "description": "A diode with 12V and 20A, used for allowing current to flow in one direction only."
+    },
+    {
+        "voltage": 24.00,
+        "current": 10.00,
+        "powerrating": 240.00,
+        "quantity": 32,
+        "name": "transistor",
+        "description": "A transistor operating at 24V and 10A, used for amplifying or switching electronic signals."
+    }
+]

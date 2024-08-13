@@ -1,0 +1,142 @@
+[
+    {
+        "type": "Copper",
+        "purity": 99.99,
+        "quantity": 100,
+        "name": "copper wire",
+        "description": "High-purity copper wire (99.99%) used for electrical wiring and conductivity applications."
+    },
+    {
+        "type": "Aluminum",
+        "purity": 99.50,
+        "quantity": 80,
+        "name": "aluminum sheet",
+        "description": "High-purity aluminum sheet (99.50%) used for lightweight structural and manufacturing applications."
+    },
+    {
+        "type": "Steel",
+        "purity": 98.00,
+        "quantity": 150,
+        "name": "steel rod",
+        "description": "High-strength steel rod (98.00% purity) used for construction and reinforcement purposes."
+    },
+    {
+        "type": "Silicon",
+        "purity": 99.90,
+        "quantity": 60,
+        "name": "silicon wafer",
+        "description": "High-purity silicon wafer (99.90%) used in semiconductor and electronic applications."
+    },
+    {
+        "type": "Nickel",
+        "purity": 99.70,
+        "quantity": 70,
+        "name": "nickel plate",
+        "description": "High-purity nickel plate (99.70%) used for corrosion-resistant and electroplating applications."
+    },
+    {
+        "type": "Lithium",
+        "purity": 99.95,
+        "quantity": 50,
+        "name": "lithium ion",
+        "description": "High-purity lithium ion (99.95%) used in rechargeable batteries and energy storage systems."
+    },
+    {
+        "type": "Cobalt",
+        "purity": 99.80,
+        "quantity": 40,
+        "name": "cobalt powder",
+        "description": "High-purity cobalt powder (99.80%) used in battery electrodes and magnetic materials."
+    },
+    {
+        "type": "Graphite",
+        "purity": 99.99,
+        "quantity": 90,
+        "name": "graphite block",
+        "description": "High-purity graphite block (99.99%) used for high-temperature applications and as a lubricant."
+    },
+    {
+        "type": "Titanium",
+        "purity": 99.60,
+        "quantity": 30,
+        "name": "titanium sheet",
+        "description": "High-purity titanium sheet (99.60%) used for aerospace and medical applications."
+    },
+    {
+        "type": "Magnesium",
+        "purity": 99.50,
+        "quantity": 110,
+        "name": "magnesium ingot",
+        "description": "High-purity magnesium ingot (99.50%) used for lightweight structural applications and alloying."
+    },
+    {
+        "type": "Zinc",
+        "purity": 99.90,
+        "quantity": 120,
+        "name": "zinc plate",
+        "description": "High-purity zinc plate (99.90%) used for galvanizing and corrosion protection."
+    },
+    {
+        "type": "Lead",
+        "purity": 99.80,
+        "quantity": 130,
+        "name": "lead bar",
+        "description": "High-purity lead bar (99.80%) used for radiation shielding and battery manufacturing."
+    },
+    {
+        "type": "Tin",
+        "purity": 99.70,
+        "quantity": 140,
+        "name": "tin foil",
+        "description": "High-purity tin foil (99.70%) used for soldering and coating applications."
+    },
+    {
+        "type": "Gold",
+        "purity": 99.99,
+        "quantity": 10,
+        "name": "gold wire",
+        "description": "High-purity gold wire (99.99%) used for electrical connections and jewelry."
+    },
+    {
+        "type": "Silver",
+        "purity": 99.95,
+        "quantity": 20,
+        "name": "silver sheet",
+        "description": "High-purity silver sheet (99.95%) used for electrical contacts and decorative applications."
+    },
+    {
+        "type": "Platinum",
+        "purity": 99.90,
+        "quantity": 15,
+        "name": "platinum rod",
+        "description": "High-purity platinum rod (99.90%) used for catalytic converters and laboratory equipment."
+    },
+    {
+        "type": "Palladium",
+        "purity": 99.80,
+        "quantity": 25,
+        "name": "palladium plate",
+        "description": "High-purity palladium plate (99.80%) used for electronics and catalytic applications."
+    },
+    {
+        "type": "Rhodium",
+        "purity": 99.99,
+        "quantity": 5,
+        "name": "rhodium powder",
+        "description": "High-purity rhodium powder (99.99%) used for catalytic converters and jewelry."
+    },
+    {
+        "type": "Iridium",
+        "purity": 99.95,
+        "quantity": 8,
+        "name": "iridium block",
+        "description": "High-purity iridium block (99.95%) used for high-temperature applications and spark plugs."
+    },
+    {
+        "type": "Osmium",
+        "purity": 99.90,
+        "quantity": 12,
+        "name": "osmium sheet",
+        "description": "High-purity osmium sheet (99.90%) used for electrical contacts and fountain pen nibs."
+    }
+]

@@ -1,0 +1,162 @@
+[
+    {
+        "quantity": 10,
+        "name": "Engine Block",
+        "material": "Aluminum",
+        "dimensions": "30x30x30 cm",
+        "weight": 15.000,
+        "description": "An aluminum engine block with dimensions of 30x30x30 cm, weighing 15 kg, used in automotive engines."
+    },
+    {
+        "quantity": 15,
+        "name": "Gearbox",
+        "material": "Steel",
+        "dimensions": "40x40x40 cm",
+        "weight": 20.000,
+        "description": "A steel gearbox with dimensions of 40x40x40 cm, weighing 20 kg, used for transmitting power in vehicles."
+    },
+    {
+        "quantity": 20,
+        "name": "Suspension Arm",
+        "material": "Carbon Fiber",
+        "dimensions": "50x50x50 cm",
+        "weight": 10.000,
+        "description": "A carbon fiber suspension arm with dimensions of 50x50x50 cm, weighing 10 kg, used in vehicle suspension systems."
+    },
+    {
+        "quantity": 25,
+        "name": "Brake Disc",
+        "material": "Ceramic",
+        "dimensions": "20x20x20 cm",
+        "weight": 5.000,
+        "description": "A ceramic brake disc with dimensions of 20x20x20 cm, weighing 5 kg, used for braking in vehicles."
+    },
+    {
+        "quantity": 30,
+        "name": "Steering Wheel",
+        "material": "Leather",
+        "dimensions": "10x10x10 cm",
+        "weight": 1.000,
+        "description": "A leather steering wheel with dimensions of 10x10x10 cm, weighing 1 kg, used for steering vehicles."
+    },
+    {
+        "quantity": 35,
+        "name": "Exhaust Pipe",
+        "material": "Titanium",
+        "dimensions": "60x60x60 cm",
+        "weight": 25.000,
+        "description": "A titanium exhaust pipe with dimensions of 60x60x60 cm, weighing 25 kg, used for expelling exhaust gases from engines."
+    },
+    {
+        "quantity": 40,
+        "name": "Radiator",
+        "material": "Copper",
+        "dimensions": "70x70x70 cm",
+        "weight": 30.000,
+        "description": "A copper radiator with dimensions of 70x70x70 cm, weighing 30 kg, used for cooling engines."
+    },
+    {
+        "quantity": 45,
+        "name": "Fuel Tank",
+        "material": "Plastic",
+        "dimensions": "80x80x80 cm",
+        "weight": 2.000,
+        "description": "A plastic fuel tank with dimensions of 80x80x80 cm, weighing 2 kg, used for storing fuel in vehicles."
+    },
+    {
+        "quantity": 50,
+        "name": "Turbocharger",
+        "material": "Rubber",
+        "dimensions": "90x90x90 cm",
+        "weight": 3.000,
+        "description": "A rubber turbocharger with dimensions of 90x90x90 cm, weighing 3 kg, used for increasing engine power."
+    },
+    {
+        "quantity": 55,
+        "name": "Piston",
+        "material": "Magnesium",
+        "dimensions": "100x100x100 cm",
+        "weight": 12.000,
+        "description": "A magnesium piston with dimensions of 100x100x100 cm, weighing 12 kg, used in internal combustion engines."
+    },
+    {
+        "quantity": 60,
+        "name": "Crankshaft",
+        "material": "Aluminum",
+        "dimensions": "110x110x110 cm",
+        "weight": 18.000,
+        "description": "An aluminum crankshaft with dimensions of 110x110x110 cm, weighing 18 kg, used for converting linear motion to rotational motion in engines."
+    },
+    {
+        "quantity": 65,
+        "name": "Camshaft",
+        "material": "Steel",
+        "dimensions": "120x120x120 cm",
+        "weight": 22.000,
+        "description": "A steel camshaft with dimensions of 120x120x120 cm, weighing 22 kg, used for operating the valves in internal combustion engines."
+    },
+    {
+        "quantity": 70,
+        "name": "Connecting Rod",
+        "material": "Carbon Fiber",
+        "dimensions": "130x130x130 cm",
+        "weight": 11.000,
+        "description": "A carbon fiber connecting rod with dimensions of 130x130x130 cm, weighing 11 kg, used for connecting the piston to the crankshaft in engines."
+    },
+    {
+        "quantity": 75,
+        "name": "Cylinder Head",
+        "material": "Ceramic",
+        "dimensions": "140x140x140 cm",
+        "weight": 6.000,
+        "description": "A ceramic cylinder head with dimensions of 140x140x140 cm, weighing 6 kg, used for housing the valves and spark plugs in engines."
+    },
+    {
+        "quantity": 80,
+        "name": "Oil Pump",
+        "material": "Leather",
+        "dimensions": "150x150x150 cm",
+        "weight": 1.500,
+        "description": "A leather oil pump with dimensions of 150x150x150 cm, weighing 1.5 kg, used for circulating oil in engines."
+    },
+    {
+        "quantity": 85,
+        "name": "Water Pump",
+        "material": "Titanium",
+        "dimensions": "160x160x160 cm",
+        "weight": 26.000,
+        "description": "A titanium water pump with dimensions of 160x160x160 cm, weighing 26 kg, used for circulating coolant in engines."
+    },
+    {
+        "quantity": 90,
+        "name": "Alternator",
+        "material": "Copper",
+        "dimensions": "170x170x170 cm",
+        "weight": 31.000,
+        "description": "A copper alternator with dimensions of 170x170x170 cm, weighing 31 kg, used for generating electrical power in vehicles."
+    },
+    {
+        "quantity": 95,
+        "name": "Starter Motor",
+        "material": "Plastic",
+        "dimensions": "180x180x180 cm",
+        "weight": 2.500,
+        "description": "A plastic starter motor with dimensions of 180x180x180 cm, weighing 2.5 kg, used for starting internal combustion engines."
+    },
+    {
+        "quantity": 100,
+        "name": "Clutch",
+        "material": "Rubber",
+        "dimensions": "190x190x190 cm",
+        "weight": 3.500,
+        "description": "A rubber clutch with dimensions of 190x190x190 cm, weighing 3.5 kg, used for engaging and disengaging the power transmission in vehicles."
+    },
+    {
+        "quantity": 105,
+        "name": "Drive Shaft",
+        "material": "Magnesium",
+        "dimensions": "200x200x200 cm",
+        "weight": 13.000,
+        "description": "A magnesium drive shaft with dimensions of 200x200x200 cm, weighing 13 kg, used for transmitting torque from the engine to the wheels."
+    }
+]
