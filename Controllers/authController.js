@@ -2,38 +2,38 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const connection = require("../database");
 const UserModel = require("../Models/userModel");
+const AppError = require("../utils/appError");
 
 exports.protectItem = async function (req, res, next) {
-  let token;
-  if (req.headers.authorization)
-    token = req.headers.authorization.split(" ")[1];
-  else
-    return res.status(401).json({
-      status: "error",
-      data: null,
-      message:
-        "Unauthorized access. Please check your credentials and try again.",
-    });
-  let decoded;
   try {
-    decoded = await jwt.verify(token, process.env.JWT_SECRET);
+    let token;
+    if (req.headers.authorization)
+      token = req.headers.authorization.split(" ")[1];
+    else
+      throw AppError(
+        "Unauthorized access. Please check your credentials and try again.",
+        401,
+      );
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const query = `SELECT * FROM USERS WHERE ID = ${decoded.id}`;
+
     const [[result]] = await connection.query(query);
     if (result === undefined)
-      return res.status(401).json({
-        status: "error",
-        data: null,
-        message:
-          "Unauthorized access. Please check your credentials and try again.",
-      });
+      throw AppError("Access Denied. Please login again!!", 404);
   } catch (err) {
     if (err.name === "TokenExpiredError")
       return res.status(401).json({
         status: "error",
-        data: null,
+        requestedAt: req.requestedAt,
         message:
           "Unauthorized access. Please check your credentials and try again.",
       });
+    res.status(err.statusCode).json({
+      status: "error",
+      requestedAt: req.requestedAt,
+      message: err.message,
+    });
   }
 
   next();
