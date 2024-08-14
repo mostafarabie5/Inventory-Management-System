@@ -1,9 +1,18 @@
 const InventoryItem = require("./inventoryItemModel");
 const connection = require("../database");
+const AppError = require("../utils/appError");
 
 class MechanicalPart extends InventoryItem {
-  constructor(name, quantity, material, dimensions, weight, id = undefined) {
-    super(name, quantity, id);
+  constructor(
+    name,
+    quantity,
+    description,
+    material,
+    dimensions,
+    weight,
+    id = undefined,
+  ) {
+    super(name, quantity, description, id);
 
     this.material = material;
     this.dimensions = dimensions;
@@ -12,8 +21,7 @@ class MechanicalPart extends InventoryItem {
 
   async addItem() {
     if (await this.checkAvailability())
-      // eslint-disable-next-line no-throw-literal
-      throw "This item is already exist in the system";
+      throw new AppError("This item is already exist in the Database", 400);
 
     await super.addItem();
     const query = `INSERT INTO MECHANICALPARTS (MATERIAL,DIMENSIONS,WEIGHT,ID) VALUES ('${this.material}','${this.dimensions}',${this.weight},${this.id});`;
@@ -21,7 +29,7 @@ class MechanicalPart extends InventoryItem {
   }
 
   static async viewItems() {
-    const query = `SELECT MECHANICALPARTS.id,name,quantity,material,dimensions,weight FROM MECHANICALPARTS,INVENTORYITEMS WHERE MECHANICALPARTS.ID = INVENTORYITEMS.ID;`;
+    const query = `SELECT MECHANICALPARTS.id,name,quantity,description,material,dimensions,weight FROM MECHANICALPARTS,INVENTORYITEMS WHERE MECHANICALPARTS.ID = INVENTORYITEMS.ID;`;
 
     const [result] = await connection.query(query);
 
@@ -30,6 +38,7 @@ class MechanicalPart extends InventoryItem {
         new MechanicalPart(
           item.name,
           item.quantity,
+          item.description,
           item.material,
           item.dimensions,
           item.weight,
@@ -40,11 +49,12 @@ class MechanicalPart extends InventoryItem {
   }
 
   async getItem() {
-    const query = `SELECT MECHANICALPARTS.id,name,quantity,material,dimensions,weight FROM MECHANICALPARTS,INVENTORYITEMS WHERE MECHANICALPARTS.ID = INVENTORYITEMS.ID AND MECHANICALPARTS.ID = ${this.id};`;
+    const query = `SELECT MECHANICALPARTS.id,name,quantity,description,material,dimensions,weight FROM MECHANICALPARTS,INVENTORYITEMS WHERE MECHANICALPARTS.ID = INVENTORYITEMS.ID AND MECHANICALPARTS.ID = ${this.id};`;
     const [[result]] = await connection.query(query);
-    
+
     this.name = result.name;
     this.quantity = result.quantity;
+    this.description = result.description;
     this.material = result.material;
     this.dimensions = result.dimensions;
     this.weight = result.weight;
@@ -52,7 +62,7 @@ class MechanicalPart extends InventoryItem {
 
   async updateItem(newData) {
     const conditions = [];
-    super.updateItem(newData);
+    const changedRowsInventory = await super.updateItem(newData);
 
     if (newData.material !== undefined) {
       conditions.push(`MATERIAL = '${newData.material}'`);
@@ -66,10 +76,13 @@ class MechanicalPart extends InventoryItem {
       conditions.push(`WEIGHT = ${newData.weight}`);
       this.weight = newData.weight;
     }
+    let changedRows = 0;
     if (conditions.length !== 0) {
       const query = `UPDATE MECHANICALPARTS SET ${conditions.join(",")} WHERE ID = ${this.id};`;
-      await connection.query(query);
+      [{ changedRows }] = await connection.query(query);
     }
+    if (changedRowsInventory === 0 && changedRows === 0)
+      throw new AppError("No Information changed", 400);
   }
 }
 

@@ -14,7 +14,11 @@ const getMechanicalParts = async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(500).json("fail");
+    res.status(err.statusCode || 500).json({
+      status: err.status || "error",
+      requestedAt: req.requestedAt,
+      message: err.message,
+    });
   }
 };
 
@@ -23,6 +27,7 @@ const addMechanicalPart = async (req, res) => {
   const item = new MechanicalPartModel(
     body.name,
     body.quantity,
+    body.description,
     body.material,
     body.dimensions,
     body.weight,
@@ -39,9 +44,10 @@ const addMechanicalPart = async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(500).json({
-      status: "error",
-      message: err,
+    res.status(err.statusCode || 500).json({
+      status: err.status || "error",
+      requestedAt: req.requestedAt,
+      message: err.message,
     });
   }
 };
@@ -58,7 +64,11 @@ const getElectricalParts = async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(500).json("fail");
+    res.status(err.statusCode || 500).json({
+      status: err.status || "error",
+      requestedAt: req.requestedAt,
+      message: err.message,
+    });
   }
 };
 
@@ -83,9 +93,10 @@ const addElectricalPart = async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(500).json({
-      status: "error",
-      message: err,
+    res.status(err.statusCode || 500).json({
+      status: err.status || "error",
+      requestedAt: req.requestedAt,
+      message: err.message,
     });
   }
 };
@@ -102,7 +113,11 @@ const getRawMaterials = async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(500).json("fail");
+    res.status(err.statusCode || 500).json({
+      status: err.status || "error",
+      requestedAt: req.requestedAt,
+      message: err.message,
+    });
   }
 };
 
@@ -126,9 +141,10 @@ const addRawMaterial = async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(500).json({
-      status: "error",
-      message: err,
+    res.status(err.statusCode || 500).json({
+      status: err.status || "error",
+      requestedAt: req.requestedAt,
+      message: err.message,
     });
   }
 };
@@ -140,6 +156,7 @@ const getAllItems = async (req, res) => {
     const raw = await RawMaterialModel.viewItems();
 
     const items = electrical.concat(mechanical).concat(raw);
+    items.sort((a, b) => a.id - b.id);
 
     res.status(200).json({
       status: "success",
@@ -149,7 +166,11 @@ const getAllItems = async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(500).json("fail");
+    res.status(err.statusCode || 500).json({
+      status: err.status || "error",
+      requestedAt: req.requestedAt,
+      message: err.message,
+    });
   }
 };
 
@@ -163,7 +184,6 @@ const updateItem = async (req, res) => {
     if (/mechanical/.test(path)) item = new MechanicalPartModel();
     else if (/electrical/.test(path)) item = new ElectricalPartModel();
     else if (/raw/.test(path)) item = new RawMaterialModel();
-    else return res.status(505).json("fail");
 
     item.id = id;
 
@@ -178,7 +198,11 @@ const updateItem = async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(400).json("fail");
+    res.status(err.statusCode || 500).json({
+      status: err.status || "error",
+      requestedAt: req.requestedAt,
+      message: err.message,
+    });
   }
 };
 

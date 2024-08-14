@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const connection = require("../database");
+const AppError = require("../utils/appError");
 
 class User {
   constructor(userName, email, password, role = "user") {
@@ -28,11 +29,13 @@ class User {
     const [[result]] = await connection.query(query);
 
     if (result === undefined)
-      // eslint-disable-next-line no-throw-literal
-      throw {
-        field: "username",
-        message: `No account found with that username `,
-      };
+      throw new AppError(
+        {
+          field: "username",
+          message: `No account found with that username `,
+        },
+        401,
+      );
 
     this.id = result.id;
     this.email = result.email;

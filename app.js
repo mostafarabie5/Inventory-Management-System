@@ -23,4 +23,12 @@ app.use("/users", userRoutes);
 app.use("/items", authController.protectItem, itemRoutes);
 app.use("/admins", authController.adminPermission, adminRoutes);
 
+app.all("*", (req, res, next) => {
+  res.status(404).json({
+    status: "fail",
+    requestedAt: req.requestedAt,
+    message: `Can't find ${req.originalUrl} on this server!`,
+  });
+});
+
 module.exports = app;

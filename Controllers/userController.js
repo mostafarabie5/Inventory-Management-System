@@ -1,5 +1,6 @@
 const authController = require("./authController");
 const UserModel = require("../Models/userModel");
+const AppError = require("../utils/appError");
 
 exports.register = async (req, res) => {
   try {
@@ -25,24 +26,24 @@ exports.register = async (req, res) => {
       message: "Account created successfully!",
     });
   } catch (err) {
-    if (!("code" in err))
-      return res.status(400).json({
-        status: "fail",
-        requestedAt: req.requestedAt,
-        data: {
-          errors: err,
-        },
-        message: "Validation failed",
-      });
-
-    res.status(504).json(err);
+    return res.status(err.statusCode || 500).json({
+      status: err.status || "error",
+      requestedAt: req.requestedAt,
+      message: JSON.parse(err.message),
+    });
   }
 };
 
 exports.login = async (req, res) => {
   try {
-    const validation = await authController.usernameField(req.body.username);
-    if (validation !== undefined) throw validation;
+    const usernameField = authController.usernameField(req.body.username);
+    const passwordField = authController.passwordField(req.body.password);
+
+    const validation = [];
+    if (usernameField !== undefined) validation.push(usernameField);
+    if (passwordField !== undefined) validation.push(passwordField);
+
+    if (validation.length !== 0) throw new AppError(validation, 400);
 
     const user = new UserModel(req.body.username, undefined, req.body.password);
 
@@ -50,7 +51,7 @@ exports.login = async (req, res) => {
 
     await authController.passwordValidity(user.password, hashedPassword);
 
-    await authController.createToken(user.id, res);
+    authController.createToken(user.id, res);
 
     user.password = undefined;
 
@@ -63,16 +64,10 @@ exports.login = async (req, res) => {
       message: "Login Successfully!",
     });
   } catch (err) {
-    if (!("code" in err))
-      res.status(400).json({
-        status: "fail",
-        requestedAt: req.requestedAt,
-        data: {
-          errors: err,
-        },
-        message: "Validation failed",
-      });
-    else res.status(504).json(err);
+    return res.status(err.statusCode || 500).json({
+      status: err.status || "error",
+      requestedAt: req.requestedAt,
+      message: JSON.parse(err.message),
+    });
   }
 };
-

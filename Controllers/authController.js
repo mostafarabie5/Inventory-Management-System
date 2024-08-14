@@ -7,10 +7,10 @@ const AppError = require("../utils/appError");
 exports.protectItem = async function (req, res, next) {
   try {
     let token;
-    if (req.headers.authorization)
+    if (req.headers.authorization !== undefined)
       token = req.headers.authorization.split(" ")[1];
     else
-      throw AppError(
+      throw new AppError(
         "Unauthorized access. Please check your credentials and try again.",
         401,
       );
@@ -20,17 +20,17 @@ exports.protectItem = async function (req, res, next) {
 
     const [[result]] = await connection.query(query);
     if (result === undefined)
-      throw AppError("Access Denied. Please login again!!", 404);
+      throw new AppError("Access Denied. Please login again!!", 404);
   } catch (err) {
     if (err.name === "TokenExpiredError")
-      return res.status(401).json({
+      return res.status(400).json({
         status: "error",
         requestedAt: req.requestedAt,
         message:
           "Unauthorized access. Please check your credentials and try again.",
       });
-    res.status(err.statusCode).json({
-      status: "error",
+    return res.status(err.statusCode || 500).json({
+      status: err.status || "error",
       requestedAt: req.requestedAt,
       message: err.message,
     });
@@ -41,19 +41,22 @@ exports.protectItem = async function (req, res, next) {
 
 exports.registrationValidation = async (email, username, password) => {
   let emailError = this.emailField(email);
-  if (!emailError) emailError = await this.checkEmailAvailability(email);
+  if (emailError === undefined)
+    emailError = await this.checkEmailAvailability(email);
 
   let usernameError = this.usernameField(username);
-  if (!usernameError)
+  if (usernameError === undefined)
     usernameError = await this.checkUsernameAvailability(username);
 
-  const passwordError = await this.passwordValidity(password);
+  const passwordError = await this.passwordField(password);
 
   const result = [];
-  if (Object.keys(emailError).length) result.push(emailError);
-  if (Object.keys(usernameError).length) result.push(usernameError);
-  if (Object.keys(passwordError).length) result.push(passwordError);
-  if (result.length !== 0) throw result;
+  if (emailError !== undefined) result.push(emailError);
+  if (usernameError !== undefined) result.push(usernameError);
+  if (passwordError !== undefined) result.push(passwordError);
+  if (result.length !== 0) {
+    throw new AppError(result, 400);
+  }
 };
 
 exports.passwordField = (password) => {
@@ -62,12 +65,14 @@ exports.passwordField = (password) => {
   return undefined;
 };
 exports.passwordValidity = async (userPassword, hashedPassword = undefined) => {
-  if (userPassword === undefined)
-    return { field: "password", message: "The password field is required." };
-  if (hashedPassword === undefined) return {};
   if (!(await bcrypt.compare(userPassword, hashedPassword)))
-    // eslint-disable-next-line no-throw-literal
-    throw { field: "password", message: "The password is Wrong." };
+    throw new AppError(
+      {
+        field: "password",
+        message: "The password is Wrong.",
+      },
+      401,
+    );
   return {};
 };
 
@@ -79,9 +84,9 @@ exports.emailField = (email) => {
 
 exports.checkEmailAvailability = async (email) => {
   const query = `SELECT ID FROM USERS WHERE EMAIL = '${email}'`;
-  const [data] = await connection.query(query);
-  let result = {};
-  if (data.length !== 0) {
+  const [[data]] = await connection.query(query);
+  let result;
+  if (data !== undefined) {
     result = { field: "email", message: "The email is already exist" };
   }
   return result;
@@ -97,15 +102,15 @@ exports.checkUsernameAvailability = async (username) => {
   const query = `SELECT ID FROM USERS WHERE USERNAME = '${username}'`;
   const [data] = await connection.query(query);
 
-  let result = {};
+  let result;
   if (data.length !== 0) {
     result = { field: "username", message: "Username is already used" };
   }
   return result;
 };
 
-exports.createToken = async (id, res) => {
-  const token = await jwt.sign({ id: id }, process.env.JWT_SECRET, {
+exports.createToken = (id, res) => {
+  const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
     expiresIn: 30 * 60,
   });
   res.cookie("token", token);
@@ -114,16 +119,21 @@ exports.createToken = async (id, res) => {
 exports.adminPermission = async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   try {
-    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+    if (token === "null")
+      throw new AppError(
+        "Unauthorized access. Please check your credentials and try again.",
+        403,
+      );
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const { role } = await UserModel.getRole(decoded.id);
 
     if (role === "user")
-      return res.status(401).json({
-        status: "error",
-        data: null,
-        message:
-          "Unauthorized access. Please check your credentials and try again.",
-      });
+      throw new AppError(
+        "Unauthorized access. Please check your credentials and try again.",
+        403,
+      );
+
+    next();
   } catch (err) {
     if (err.name === "TokenExpiredError")
       return res.status(401).json({
@@ -132,8 +142,10 @@ exports.adminPermission = async (req, res, next) => {
         message:
           "Unauthorized access. Please check your credentials and try again.",
       });
-    return res.status(500).json(err);
+    return res.status(err.statusCode || 500).json({
+      status: err.status || "error",
+      requestedAt: req.requestedAt,
+      message: err.message,
+    });
   }
-
-  next();
 };

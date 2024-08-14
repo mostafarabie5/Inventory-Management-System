@@ -1,4 +1,5 @@
 const connection = require("../database");
+const AppError = require("../utils/appError");
 
 exports.getAllUsers = async (req, res) => {
   try {
@@ -7,13 +8,10 @@ exports.getAllUsers = async (req, res) => {
     );
     res.status(200).json(result);
   } catch (err) {
-    console.error("Error fetching users:", err); // Log the error details
-
-    res.status(500).json({
-      status: "error",
+    res.status(err.statusCode || 500).json({
+      status: err.status || "error",
       requestedAt: req.requestedAt,
-      message:
-        "An error occurred while fetching users. Please try again later.",
+      message: err.message,
     });
   }
 };
@@ -21,16 +19,23 @@ exports.getAllUsers = async (req, res) => {
 exports.deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
-    await connection.query(`DELETE FROM USERS WHERE ID = ${id};`);
-    res.status(200).json("Done");
-  } catch (err) {
-    console.error("Error fetching users:", err); // Log the error details
+    const [{ affectedRows }] = await connection.query(
+      `DELETE FROM USERS WHERE ID = ${id};`,
+    );
 
-    res.status(500).json({
-      status: "error",
+    if (affectedRows === 0)
+      throw new AppError(`There is no user with ID = ${id}`, 404);
+
+    res.status(204).json({
+      status: "success",
+      requestedAT: req.requestedAT,
+      message: "The user is deleted successfully",
+    });
+  } catch (err) {
+    res.status(err.statusCode || 500).json({
+      status: err.status || "error",
       requestedAt: req.requestedAt,
-      message:
-        "An error occurred while fetching users. Please try again later.",
+      message: err.message,
     });
   }
 };
@@ -38,16 +43,31 @@ exports.deleteUser = async (req, res) => {
 exports.giveAdminPermission = async (req, res) => {
   try {
     const { id } = req.params;
-    await connection.query(`UPDATE USERS SET ROLE = 'admin' WHERE ID = ${id};`);
-    res.status(200).json("Done");
-  } catch (err) {
-    console.error("Error fetching users:", err); // Log the error details
 
-    res.status(500).json({
-      status: "error",
+    const [[user]] = await connection.query(
+      `SELECT id,username,email,role FROM USERS WHERE ID = ${id}`,
+    );
+    if (user === undefined)
+      throw new AppError(`There is no user with ID = ${id}`, 404);
+
+    const [{ changedRows }] = await connection.query(
+      `UPDATE USERS SET ROLE = 'admin' WHERE ID = ${id};`,
+    );
+    if (changedRows === 0)
+      throw new AppError(`The user is already admin.`, 404);
+
+    user.role = "admin";
+
+    res.status(200).json({
+      status: "success",
       requestedAt: req.requestedAt,
-      message:
-        "An error occurred while fetching users. Please try again later.",
+      data: user,
+    });
+  } catch (err) {
+    res.status(err.statusCode || 500).json({
+      status: err.status || "error",
+      requestedAt: req.requestedAt,
+      message: err.message,
     });
   }
 };
@@ -55,16 +75,33 @@ exports.giveAdminPermission = async (req, res) => {
 exports.removeAdminPermission = async (req, res) => {
   try {
     const { id } = req.params;
-    await connection.query(`UPDATE USERS SET ROLE = 'user' WHERE ID = ${id};`);
-    res.status(200).json("Done");
-  } catch (err) {
-    console.error("Error fetching users:", err); // Log the error details
 
-    res.status(500).json({
-      status: "error",
+    const [[user]] = await connection.query(
+      `SELECT id,username,email,role FROM USERS WHERE ID = ${id}`,
+    );
+
+    if (user === undefined)
+      throw new AppError(`There is no user with ID = ${id}`, 404);
+
+    const [{ changedRows }] = await connection.query(
+      `UPDATE USERS SET ROLE = 'user' WHERE ID = ${id};`,
+    );
+
+    if (changedRows === 0)
+      throw new AppError(`There user is already regular user.`, 404);
+
+    user.role = "user";
+
+    res.status(200).json({
+      status: "success",
       requestedAt: req.requestedAt,
-      message:
-        "An error occurred while fetching users. Please try again later.",
+      data: user,
+    });
+  } catch (err) {
+    res.status(err.statusCode || 500).json({
+      status: err.status || "error",
+      requestedAt: req.requestedAt,
+      message: err.message,
     });
   }
 };
