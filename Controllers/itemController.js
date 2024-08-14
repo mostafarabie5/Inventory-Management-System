@@ -153,6 +153,35 @@ const getAllItems = async (req, res) => {
   }
 };
 
+const updateItem = async (req, res) => {
+  try {
+    const { path } = req;
+    const { id } = req.params;
+    const { body } = req;
+    let item;
+
+    if (/mechanical/.test(path)) item = new MechanicalPartModel();
+    else if (/electrical/.test(path)) item = new ElectricalPartModel();
+    else if (/raw/.test(path)) item = new RawMaterialModel();
+    else return res.status(505).json("fail");
+
+    item.id = id;
+
+    await item.getItem();
+    await item.updateItem(body);
+
+    res.status(201).json({
+      status: "success",
+      requrestedAt: req.requestedAt,
+      data: {
+        item,
+      },
+    });
+  } catch (err) {
+    res.status(400).json("fail");
+  }
+};
+
 module.exports = {
   addMechanicalPart,
   getMechanicalParts,
@@ -161,4 +190,5 @@ module.exports = {
   getRawMaterials,
   addRawMaterial,
   getAllItems,
+  updateItem,
 };

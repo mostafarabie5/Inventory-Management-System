@@ -37,6 +37,35 @@ class RawMaterial extends InventoryItem {
     );
     return items;
   }
+
+  async getItem() {
+    const query = `SELECT RAWMATERIALS.id,name,quantity,type,purity FROM RAWMATERIALS,INVENTORYITEMS WHERE RAWMATERIALS.ID = INVENTORYITEMS.ID AND RAWMATERIALS.ID = ${this.id};`;
+    const [[result]] = await connection.query(query);
+
+    this.name = result.name;
+    this.quantity = result.quantity;
+    this.material = result.material;
+    this.dimensions = result.dimensions;
+    this.weight = result.weight;
+  }
+
+  async updateItem(newData) {
+    const conditions = [];
+    super.updateItem(newData);
+
+    if (newData.type !== undefined) {
+      conditions.push(`TYPE = '${newData.type}'`);
+      this.type = newData.type;
+    }
+    if (newData.purity !== undefined) {
+      conditions.push(`PURITY = ${newData.purity}`);
+      this.purity = newData.purity;
+    }
+    if (conditions.length !== 0) {
+      const query = `UPDATE RAWMATERIALS SET ${conditions.join(",")} WHERE ID = ${this.id};`;
+      await connection.query(query);
+    }
+  }
 }
 
 module.exports = RawMaterial;

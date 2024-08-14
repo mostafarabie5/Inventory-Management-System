@@ -38,6 +38,39 @@ class MechanicalPart extends InventoryItem {
     );
     return items;
   }
+
+  async getItem() {
+    const query = `SELECT MECHANICALPARTS.id,name,quantity,material,dimensions,weight FROM MECHANICALPARTS,INVENTORYITEMS WHERE MECHANICALPARTS.ID = INVENTORYITEMS.ID AND MECHANICALPARTS.ID = ${this.id};`;
+    const [[result]] = await connection.query(query);
+    
+    this.name = result.name;
+    this.quantity = result.quantity;
+    this.material = result.material;
+    this.dimensions = result.dimensions;
+    this.weight = result.weight;
+  }
+
+  async updateItem(newData) {
+    const conditions = [];
+    super.updateItem(newData);
+
+    if (newData.material !== undefined) {
+      conditions.push(`MATERIAL = '${newData.material}'`);
+      this.material = newData.material;
+    }
+    if (newData.dimensions !== undefined) {
+      conditions.push(`DIMENSIONS = '${newData.dimensions}'`);
+      this.dimensions = newData.dimensions;
+    }
+    if (newData.weight !== undefined) {
+      conditions.push(`WEIGHT = ${newData.weight}`);
+      this.weight = newData.weight;
+    }
+    if (conditions.length !== 0) {
+      const query = `UPDATE MECHANICALPARTS SET ${conditions.join(",")} WHERE ID = ${this.id};`;
+      await connection.query(query);
+    }
+  }
 }
 
 module.exports = MechanicalPart;

@@ -21,6 +21,22 @@ class InventoryItem {
     if (result === undefined) return false;
     return true;
   }
+
+  async updateItem(newData) {
+    const conditions = [];
+    if (newData.name !== undefined) {
+      conditions.push(`NAME = '${newData.name}'`);
+      this.name = newData.name;
+    }
+    if (newData.quantity !== undefined) {
+      conditions.push(`QUANTITY = ${newData.quantity}`);
+      this.quantity = newData.quantity;
+    }
+    if (conditions.length !== 0) {
+      const query = `UPDATE INVENTORYITEMS SET ${conditions.join(",")} WHERE ID = ${this.id};`;
+      await connection.query(query);
+    }
+  }
 }
 
 module.exports = InventoryItem;

@@ -32,11 +32,43 @@ class ElectricalPart extends InventoryItem {
           item.quantity,
           item.voltage,
           item.current,
-          item.powerRatin,
+          item.powerRating,
           item.id,
         ),
     );
     return items;
+  }
+
+  async getItem() {
+    const query = `SELECT ELECTRICALPARTS.id,name,quantity,voltage,current,powerrating FROM ELECTRICALPARTS,INVENTORYITEMS WHERE ELECTRICALPARTS.ID = INVENTORYITEMS.ID AND ELECTRICALPARTS.ID = ${this.id};`;
+    const [[result]] = await connection.query(query);
+
+    this.name = result.name;
+    this.quantity = result.quantity;
+    this.material = result.material;
+    this.dimensions = result.dimensions;
+    this.weight = result.weight;
+  }
+
+  async updateItem(newData) {
+    const conditions = [];
+    super.updateItem(newData);
+    if (newData.voltage !== undefined) {
+      conditions.push(`VOLTAGE = ${newData.voltage}`);
+      this.voltage = newData.voltage;
+    }
+    if (newData.current !== undefined) {
+      conditions.push(`CURRENT = ${newData.current}`);
+      this.current = newData.current;
+    }
+    if (newData.powerrating !== undefined) {
+      conditions.push(`POWERRATING = ${newData.powerrating}`);
+      this.powerrating = newData.powerrating;
+    }
+    if (conditions.length !== 0) {
+      const query = `UPDATE ELECTRICALPARTS SET ${conditions.join(",")} WHERE ID = ${this.id};`;
+      await connection.query(query);
+    }
   }
 }
 
