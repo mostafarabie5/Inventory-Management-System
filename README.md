@@ -49,6 +49,7 @@ The Inventory Management System is designed to help users manage their inventory
    5- RawMaterials
    ```
 
+
 ## Usage
 
 1. Start the server:
@@ -62,3 +63,55 @@ The Inventory Management System is designed to help users manage their inventory
 ## API Endpoints
 
 ### Authentication
+
+
+- `POST /api/v1/auth/login`: Login a user
+- `POST /api/v1/auth/register`: Register a new user
+
+### Admin
+
+- `GET /api/v1/admins`: Get all users
+- `DELETE /api/v1/admins/:id`: Delete user by id
+- `PATCH /api/v1/admins/permission/:id`:Make regular user an admin
+
+
+### Items
+
+- `GET /api/v1/items`: Get all Inventory Items
+- `GET /api/v1/mechanical`: Get all Mechanical Parts
+- `GET /api/v1/electrical`: Get all Electrical Parts 
+- `GET /api/v1/raw`: Get all Raw Materials
+- `POST /api/v1/mechanical`: Add Mechanical part 
+- `POST /api/v1/electrical`: Add Electrical Part
+- `POST /api/v1/raw`: Add Raw Material
+- `PATCH /api/v1/mechanical/:id`: Update Mechanical Part by its id 
+- `PATCH /api/v1/electrical/:id`: Update Electrical Part by its id 
+- `PATCH /api/v1/raw/:id`: Update Raw Material by its id
+
+
+
+## Error Handling
+
+The project uses a custom `AppError` class for error handling. Errors are thrown with appropriate status codes and messages.
+
+## Contributing
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature-branch`)
+3. Make your changes
+4. Commit your changes (`git commit -m 'Add some feature'`)
+5. Push to the branch (`git push origin feature-branch`)
+6. Open a Pull Request
+
+
+## Acknowledgements
+
+- [bcrypt](https://www.npmjs.com/package/bcrypt)
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [mysql](https://www.npmjs.com/package/mysql)
+
+## Contact
+
+Mostafa Rabie - [mostafarabie5902@gmail.com](mailto:mostafarabie5902@gmail.com)
+
+Project Link: [https://github.com/mostafarabie5/Inventory-Management-System](https://github.com/mostafarabie5/Inventory-Management-System)
