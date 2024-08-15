@@ -52,6 +52,12 @@ class ElectricalPart extends InventoryItem {
     const query = `SELECT ELECTRICALPARTS.id,name,quantity,description,voltage,current,powerrating FROM ELECTRICALPARTS,INVENTORYITEMS WHERE ELECTRICALPARTS.ID = INVENTORYITEMS.ID AND ELECTRICALPARTS.ID = ${this.id};`;
     const [[result]] = await connection.query(query);
 
+    if (result === undefined)
+      throw new AppError(
+        `No Item with ID = ${this.id} exist in the database.`,
+        404,
+      );
+
     this.name = result.name;
     this.quantity = result.quantity;
     this.description = result.description;
