@@ -1,22 +1,24 @@
-# Project Name
+# Inventory Management System
 
 ## Description
 
-A brief description of your project. Explain what it does, its purpose, and any other relevant information.
+The Inventory Management System is designed to help users manage their inventory efficiently. The system includes user authentication to ensure that only authorized users can access and modify the inventory. Below is a brief overview of the system's specifications and functionalities:
 
 ## Features
 
-- Feature 1
-- Feature 2
-- Feature 3
+- User Authentication: Secure login with username and password to ensure only authorized users can access the system.
+- Add Items: Users can add new items to the inventory.
+- View Items: Users can view a list of all items in the inventory.
+- Get Items API: Fetch the list of inventory items.
+- Add Items API: Backend functionality to add new items to the inventory.
 
 ## Installation
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-   cd your-repo-name
+   https://github.com/mostafarabie5/Inventory-Management-System.git
+   cd Inventory-Management-System
    ```
 
 2. Install dependencies:
@@ -35,6 +37,20 @@ A brief description of your project. Explain what it does, its purpose, and any 
    DB_NAME=your_database_name
    ```
 
+4. Set up Database
+   In the project file there is a folder named `Database` have files to create schema of each table
+   Creation order
+   ```plaintext
+   1- Users Table
+   2- InventoryItems
+   3- MechanicalParts
+   4- ElectricalParts
+   5- RawMaterials
+   ```
+
+
+
+
 ## Usage
 
 1. Start the server:
@@ -43,7 +59,7 @@ A brief description of your project. Explain what it does, its purpose, and any 
    npm start
    ```
 
-2. Access the application at `http://localhost:3000`
+2. Access the application at `http://localhost:8000`
 
 ## API Endpoints
 
@@ -52,14 +68,27 @@ A brief description of your project. Explain what it does, its purpose, and any 
 - `POST /api/v1/auth/login`: Login a user
 - `POST /api/v1/auth/register`: Register a new user
 
-### User
+### Admin
 
-- `GET /api/v1/users`: Get all users
-- `GET /api/v1/users/:id`: Get a user by ID
+- `GET /api/v1/admins`: Get all users
+- `DELETE /api/v1/admins/:id`: Delete user by id
+- `PATCH /api/v1/admins/permission/:id`:Make regular user an admin
 
-### Protected Routes
 
-- `GET /api/v1/protected`: Access protected route (requires JWT token)
+### Items
+
+- `GET /api/v1/items`: Get all Inventory Items
+- `GET /api/v1/mechanical`: Get all Mechanical Parts
+- `GET /api/v1/electrical`: Get all Electrical Parts 
+- `GET /api/v1/raw`: Get all Raw Materials
+- `POST /api/v1/mechanical`: Add Mechanical part 
+- `POST /api/v1/electrical`: Add Electrical Part
+- `POST /api/v1/raw`: Add Raw Material
+- `PATCH /api/v1/mechanical/:id`: Update Mechanical Part by its id 
+- `PATCH /api/v1/electrical/:id`: Update Electrical Part by its id 
+- `PATCH /api/v1/raw/:id`: Update Raw Material by its id
+
+
 
 ## Error Handling
 
@@ -74,9 +103,6 @@ The project uses a custom `AppError` class for error handling. Errors are thrown
 5. Push to the branch (`git push origin feature-branch`)
 6. Open a Pull Request
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 
@@ -86,6 +112,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-Your Name - [your-email@example.com](mailto:your-email@example.com)
+Mostafa Rabie - [mostafarabie5902@gmail.com](mailto:mostafarabie5902@gmail.com)
 
-Project Link: [https://github.com/yourusername/your-repo-name](https://github.com/yourusername/your-repo-name)
+Project Link: [https://github.com/mostafarabie5/Inventory-Management-System](https://github.com/mostafarabie5/Inventory-Management-System)
