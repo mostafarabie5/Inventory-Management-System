@@ -6,7 +6,7 @@ dotenv.config({
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const userRoutes = require("./Routes/userRoutes");
+const authRoutes = require("./Routes/authRoutes");
 const itemRoutes = require("./Routes/itemRoutes");
 const adminRoutes = require("./Routes/adminRoutes");
 const authController = require("./Controllers/authController");
@@ -19,9 +19,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/users", userRoutes);
-app.use("/items", authController.protectItem, itemRoutes);
-app.use("/admins", authController.adminPermission, adminRoutes);
+app.use("/api/v1/auth/", authRoutes);
+app.use("/api/v1/items", authController.protectItem, itemRoutes);
+app.use("/api/v1/admins", authController.adminPermission, adminRoutes);
 
 app.all("*", (req, res, next) => {
   res.status(404).json({

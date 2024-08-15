@@ -1,13 +1,12 @@
 const mysql = require("mysql2");
-const databaseConfig = require("./database.config");
 
 const connection = mysql
   .createConnection({
-    host: databaseConfig.host,
-    password: databaseConfig.password,
-    user: databaseConfig.user,
-    database: databaseConfig.name,
-    port: databaseConfig.port,
+    host: process.env.HOSTNAME,
+    password: process.env.DATABASE_PASSWORD,
+    user: process.env.DATABASE_USER,
+    database: process.env.DATABASE_NAME,
+    port: process.env.DATABASE_PORT,
   })
   .promise();
 (async () => {
