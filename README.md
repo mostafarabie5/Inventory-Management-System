@@ -94,6 +94,12 @@ The Inventory Management System is designed to help users manage their inventory
 
 The project uses a custom `AppError` class for error handling. Errors are thrown with appropriate status codes and messages.
 
+
+## Data can be used in the project
+
+There is folder named `Data` contains three files for each table `Mechanical Parts` - `Electrical Parts` - `Raw Materials`
+
+
 ## Contributing
 
 1. Fork the repository
