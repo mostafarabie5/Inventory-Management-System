@@ -77,6 +77,7 @@ const addElectricalPart = async (req, res) => {
   const item = new ElectricalPartModel(
     body.name,
     body.quantity,
+    body.description,
     body.voltage,
     body.current,
     body.powerrating,
@@ -126,6 +127,7 @@ const addRawMaterial = async (req, res) => {
   const item = new RawMaterialModel(
     body.name,
     body.quantity,
+    body.description,
     body.type,
     body.purity,
   );
